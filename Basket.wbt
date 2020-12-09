@@ -1,0 +1,29 @@
+#VRML_SIM R2020b utf8
+WorldInfo {
+  coordinateSystem "NUE"
+}
+Viewpoint {
+  orientation -0.9415579257170423 -0.32382072771121023 -0.09278366679541679 0.6506159147022744
+  position -1.24013148732677 4.209088814648792 5.516237205529108
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 10 10
+  wallHeight 1
+}
+IprHd6ms180 {
+  translation -1.17 0.02 0
+  controller "Arm"
+}
+KukaBox {
+  translation -1.72 0.07 0
+  size 0.04 0.09 0.04
+  contactMaterial "connector"
+}
+FruitBowl {
+  translation 0.95 0.07 0
+  mass 10
+}
