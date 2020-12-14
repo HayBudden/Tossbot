@@ -61,36 +61,69 @@ wb_position_sensor_enable(uarmsen,TIME_STEP);
 wb_position_sensor_enable(farmsen,TIME_STEP);
 
 
-target1 = randi([1 20]);
-target2 = randi([1 20]);
-target3 = randi([1 20]);
+target1 = 10
+target2 = randi([1 10]);
+target3 = randi([1 10]);
 
 stop = 0;
-run = 1;
+grip = 0;
 for i = 1:6
     stepr(i) = 0;
 end
+%------------------------------------------------------
 while wb_robot_step(TIME_STEP) ~= -1
-
+%------------------------------------------------------
 step = step + 1;
 if step == 1
-    wb_motor_set_velocity(base,1);
-    wb_motor_set_velocity(rotwrist,1);
+    wb_motor_set_velocity(base,-0.75);
+    wb_motor_set_velocity(rotwrist,1.1);
 end
 if step == 4
     wb_motor_set_velocity(base,0);
-    wb_motor_set_velocity(rotwrist,0);
-    basepos = wb_position_sensor_get_value(basesen); 
+    wb_motor_set_velocity(rotwrist,0); 
 end
-switch run
-    case 1
+
         stepr(1) = stepr(1) + 1;
         %první sebrání 
-        if stepr1 == 1
-        wb_motor_set_veliocity(uarm,1);
-        end    
-        run = 2;
-    case 2
+        if stepr(1) == 1
+        wb_motor_set_velocity(uarm,1);
+        wb_motor_set_velocity(farm,1);
+        wb_motor_set_velocity(wrist,-1);
+        wb_motor_set_velocity(lgrip,-1);
+        wb_motor_set_velocity(rgrip,1);
+        end
+        if stepr(1) == 19
+            wb_motor_set_velocity(uarm,0);
+        end
+        if stepr(1) == 20
+            wb_motor_set_velocity(lgrip,0);
+            wb_motor_set_velocity(rgrip,0);
+        end
+        if stepr(1) == 25
+            wb_motor_set_velocity(wrist,0);
+        end
+        if stepr(1) == 34
+            wb_motor_set_velocity(farm,0);
+        end
+        if stepr(1) == 36
+            wb_motor_set_velocity(lgrip,1);
+            wb_motor_set_velocity(rgrip,-1);
+        end
+        if stepr(1) == 50
+            wb_motor_set_velocity(lgrip,0);
+            wb_motor_set_velocity(rgrip,0);
+        end
+        if step == 55
+            wb_motor_set_velocity(wrist,-1);
+        end
+        if step == 59
+            wb_motor_set_velocity(wrist,0);
+        end
+              
+        if stepr(1)== 70
+            run = 2;
+        end
+
         stepr(2) = stepr(2) + 1;
         %první hod
         baserot = aimbase(pos, target1);
@@ -99,29 +132,41 @@ switch run
         end
         if stepr(2) == 46
             wb_motor_set_velocity(base,0);
-        end
-        speed = 
+            [speed,grip] = fire(pos,target1);
+        end 
         if stepr(2) == 50
             wb_motor_set_velocity(uarm,speed);
-        run = 3;
-    case 3
-        stepr(3) = stepr(3) + 1;
-        %druhé sebrání 
-        run = 4;
-    case 4
-        stepr(4) = stepr(4) + 1;
-        %druhý hod
-        baserot = aimbase(pos, target2);
-        run = 5;
-    case 5
-        stepr(5) = stepr(5) + 1;
-        %třetí sebrání
-        run = 6;
-    case 6
-        stepr(6) = stepr(6) + 1;
-        %třetí hod
-        baserot = aimbase(pos, target3);
-end
+        end
+        if stepr(2) == (50 + grip)
+            wb_motor_set_velocity(lgrip,-2);
+            wb_motor_set_velocity(rgrip,2);
+        end
+        if stepr(2) == (50 + grip + 1)
+            wb_motor_set_velocity(uarm,0);
+            wb_motor_set_velocity(lgrip,0);
+            wb_motor_set_velocity(rgrip,0);
+        end
+        if stepr(2) == 60
+            wb_motor_set_velocity(uarm,speed*(-1)/8);
+            wb_motor_set_velocity(base,baserot*(-1));
+            wb_motor_set_velocity(lgrip,2);
+            wb_motor_set_velocity(rgrip,-2);
+        end
+        if stepr(2) == 61
+            wb_motor_set_velocity(lgrip,0);
+            wb_motor_set_velocity(rgrip,0);
+        end
+        if stepr(2) == (60 + 8 * (grip + 1))
+           wb_motor_set_velocity(uarm,0); 
+        end
+        if stepr(2) == 105
+            wb_motor_set_velocity(base,0);
+        end
+        if stepr(2) == 106
+            run = 3;
+        end
+
+
 end
     
 
