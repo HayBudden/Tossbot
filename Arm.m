@@ -40,11 +40,11 @@ grip = 3;
 
 pos = [position(1) position(3)]
 
-if (pos(1)^2+pos(2)^2) < 1
+if sqrt(pos(1)^2+pos(2)^2) < 1
   wb_console_print('Error: Distance lesser than 1', WB_STDOUT) 
   TIME_STEP = -1
 end
-if (pos(1)^2+pos(2)^2) > 4
+if sqrt(pos(1)^2+pos(2)^2) > 4
   wb_console_print('Error: Distance greater than 4', WB_STDOUT) 
   TIME_STEP = -1
 end
