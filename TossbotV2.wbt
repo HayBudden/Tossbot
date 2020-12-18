@@ -1,0 +1,39 @@
+#VRML_SIM R2020b utf8
+WorldInfo {
+  coordinateSystem "NUE"
+}
+Viewpoint {
+  orientation -0.3971110461065603 -0.864090681336298 -0.30927352212552234 1.1219656510503262
+  position -7.598784801828967 5.039816017550022 5.196901158815984
+}
+TexturedBackground {
+  skybox FALSE
+  skyColor [
+    0.7 0.7 0.7
+  ]
+}
+TexturedBackgroundLight {
+}
+IprHd6ms180 {
+  translation 0 0.01 0
+  rotation 0 1 0 -0.1308996938995747
+  controller "Arm"
+  supervisor TRUE
+}
+WoodenBox {
+  translation -0.57 0.05 -0.01
+  size 0.06 0.06 0.06
+  mass 0.1
+}
+DEF target CircleArena {
+  translation 1 0.01 0
+  name "target"
+  radius 0.25
+  wallThickness 0.05
+  wallHeight 0.2
+}
+CircleArena {
+  radius 4
+  wallThickness 0.14
+  wallHeight 0.3
+}
