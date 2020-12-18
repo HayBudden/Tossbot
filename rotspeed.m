@@ -37,7 +37,7 @@ function speed = rotspeed(pos)
     angle = 0
   end
   
-%speed of base calculation
+%speed of base motor calculation
   deg = 180/50;
   speed = angle/(45*deg)*-1;
 end
