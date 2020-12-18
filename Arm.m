@@ -1,9 +1,9 @@
 % MATLAB controller for Webots
 % File: Arm.m
-% Date: 13.12.2020
+% Date: 18.12.2020
 % Description: Basic arm control
 % Author: Hanke/Bělohlávek
-% Modifications:
+
 
 
 TIME_STEP = 64;
@@ -38,15 +38,15 @@ step = 0;
 phase = 1;
 grip = 3;
 
-pos = [position(1) position(3)]
+pos = [position(1) position(3)];
 
 if sqrt(pos(1)^2+pos(2)^2) < 1
   wb_console_print('Error: Distance lesser than 1', WB_STDOUT) 
-  TIME_STEP = -1
+  TIME_STEP = -1;
 end
 if sqrt(pos(1)^2+pos(2)^2) > 4
   wb_console_print('Error: Distance greater than 4', WB_STDOUT) 
-  TIME_STEP = -1
+  TIME_STEP = -1;
 end
 
 for i = 1:6
@@ -150,8 +150,6 @@ switch phase
         if stepr(2) == 105
             wb_motor_set_velocity(base,0);
         end
-        if stepr(2) == 106
-        end
-
+        
 end
 end
